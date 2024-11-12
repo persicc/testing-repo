@@ -3,6 +3,15 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className="page">Home</div>
+    <div className="page">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   );
 }
