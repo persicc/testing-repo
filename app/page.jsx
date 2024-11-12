@@ -9,6 +9,14 @@ export default function Home() {
       <div className="">Link</div>
       <div className=""></div>
       <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
+      <div className=""></div>
     </main>    
   );
 }
