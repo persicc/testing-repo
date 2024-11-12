@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import SignIn from "../signIn/SignIn";
+import { SignOut } from "../signOut/SignOut";
 
 function Navbar() {
   return (
-    <div>Navbar</div>
-  )
+    <div>
+      <SignIn />
+      <SignOut />
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;

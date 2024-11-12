@@ -9,6 +9,7 @@ function SingleBlogPage() {
 
   useEffect(() => {
     if (!blogId) return;
+
     const getData = async () => {
       try {
         const response = await fetch(
