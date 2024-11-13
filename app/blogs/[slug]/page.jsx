@@ -6,7 +6,6 @@ import React, { useEffect } from "react";
 function SingleBlogPage() {
   const router = useRouter();
   const [blog, setBlog] = useState(null);
-
   const { blogId } = router.pathname;
 
   useEffect(() => {
