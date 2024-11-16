@@ -1,4 +1,4 @@
-import { signOut } from "@/auth.js";
+import { signOut } from "@/utils/auth.js";
 
 export function SignOut() {
   return (
