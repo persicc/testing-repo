@@ -1,6 +1,6 @@
-import { signIn } from "@/utils/auth";
+import { signIn } from "@/auth";
 
-function SignIn() {
+export default function SignIn() {
   return (
     <form
       action={async () => {
@@ -12,5 +12,3 @@ function SignIn() {
     </form>
   );
 }
-
-export default SignIn;
