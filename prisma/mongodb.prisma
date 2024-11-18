@@ -8,20 +8,21 @@ generator client {
 }
  
 model User {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?         @unique
+  email         String? @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
   Authenticator Authenticator[]
-  posts Post[]
-  comments Comment[]
- 
-  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Posts Post[]
+  Comments Comment[]
+  Likes Like[]
+
+  createdAt DateTime @default(now())
 }
  
 model Account {
@@ -82,28 +83,55 @@ model Authenticator {
   @@unique([userId, credentialID])
 }
 
+model Chatroom {
+  id String @id @default(cuid()) @map("_id")
+  messages Message[]
+
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id String @id @default(cuid()) @map("_id")
+  text String
+  read Boolean @default(false)
+  senderId String
+  chatroomId String
+  chatroom Chatroom @relation(fields: [chatroomId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+
 model Post {
-    id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-    userId String @db.ObjectId
-    desc  String? 
-    image String
-    comments Comment[]
-    createdAt DateTime @default(now())
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(cuid()) @map("_id")
+  desc String?
+  img String
+  Comments Comment[]
+  Likes Like[]
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  
 }
 
 model Comment {
-    id String @id @map("_id")
-    userId String @db.ObjectId
-    postId String @db.ObjectId
-    text String
-    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(cuid()) @map("_id")
+  text String
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  postId String
+  post Post @relation(fields: [postId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
-model Category {
-    id String @id @map("_id")
-    title String
-    postId String @db.ObjectId
+model Like {
+  id String @id @default(cuid()) @map("_id")
+  userId String
+  User User @relation(fields: [userId], references: [id])
+  postId String
+  Post Post @relation(fields: [postId], references: [id])
 
+  createdAt DateTime @default(now())
 }
