@@ -1,7 +1,19 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function ProtectedRoutes({ children }) {
-  return <div>{children}</div>;
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(status);
+    if (status === "unauthenticated") router.push("/login");
+  }, [status]);
+
+  return <>{children}</>;
 }
 
 export default ProtectedRoutes;

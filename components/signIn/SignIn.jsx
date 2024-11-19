@@ -1,16 +1,9 @@
-import { signIn } from "@/utils/auth";
+import { signInWithGoogle } from "@/serverFunctions";
 
-function SignIn() {
+export default function SignIn() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn("google");
-      }}
-    >
+    <form action={signInWithGoogle}>
       <button type="submit">Signin with Google</button>
     </form>
   );
 }
-
-export default SignIn;
