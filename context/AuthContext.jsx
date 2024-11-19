@@ -1,20 +1,18 @@
 "use client";
 
-import { createContext } from "react";
-import React, { useEffect } from "react";
+import React, { createContext } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-// blogContext.js
 
-const AuthContext = createContext();
+const AuthContext = createContext({ status: "unauthenticated", session: null });
 
 const AuthProvider = ({ children }) => {
-  const { status } = useSession();
-  const router = useRouter();
+  const { data: session, status } = useSession();
 
   return (
-    <AuthContext.Provider value={{ status }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ session, status }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
-export default { AuthContext, AuthProvider };
+export { AuthContext, AuthProvider };
