@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
-
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import SignIn from "@/components/signIn/SignIn";
+import Featured from "@/components/featured/Featured";
 
 function LoginPage() {
   const { status } = useContext(AuthContext);
@@ -18,6 +18,7 @@ function LoginPage() {
   return (
     <div>
       <h1>Login</h1>
+      <Featured />
       <SignIn />
     </div>
   );
