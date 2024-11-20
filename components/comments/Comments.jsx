@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Comment from "../comment/Comment";
 
-const getComments = async () => {
-  const data = await fetch("api/comments");
+const getComments = async ({ postId }) => {
+  const data = await fetch("api/comments", { headers: { postId } });
   return data.json();
 };
 
-function Comments() {
+function Comments({ postId }) {
   const [comments, setComments] = useState([]);
 
   const addComment = async (e) => {
@@ -21,7 +21,7 @@ function Comments() {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getComments();
+      const data = await getComments({ postId });
       setComments(data);
     };
     getData();
@@ -36,7 +36,7 @@ function Comments() {
 
       <h1>Comments</h1>
       {comments.map((comment) => (
-        <div key={comment.id}>
+        <div key={comment.postId}>
           <Comment text={comment.text} />
         </div>
       ))}
