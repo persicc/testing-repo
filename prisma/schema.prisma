@@ -88,8 +88,7 @@ model Authenticator {
 model Post {
   id String @id @default(cuid()) @map("_id")
   desc String?
-  img String
-  Comments Comment[]
+  img String?
   Likes Like[]
   userId String
   user User @relation(fields: [userId], references: [id])
@@ -104,7 +103,6 @@ model Comment {
   userId String
   user User @relation(fields: [userId], references: [id])
   postId String
-  post Post @relation(fields: [postId], references: [id])
 
   createdAt DateTime @default(now())
 }
