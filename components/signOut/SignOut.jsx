@@ -1,13 +1,8 @@
-import { signOut } from "@/auth.js";
+import { _signOut } from "@/serverFunctions";
 
 export function SignOut() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut();
-      }}
-    >
+    <form action={_signOut}>
       <button type="submit">Sign Out</button>
     </form>
   );

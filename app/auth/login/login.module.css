@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loginContainer {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  background: #23242a;
+  color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 30rem;
+}
+
+.loginContainer input {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #27282f;
+  border: none;
+  font-size: 1.1rem;
+  color: white;
+}

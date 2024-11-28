@@ -1,13 +1,10 @@
-import React from "react";
-import SignIn from "../signIn/SignIn";
-import { SignOut } from "../signOut/SignOut";
+import AuthLinks from "../authLinks/authLinks";
 import UserAvatar from "../userAvatar/UserAvatar";
 
 function Navbar() {
   return (
     <div>
-      <SignIn />
-      <SignOut />
+      <AuthLinks />
       <UserAvatar />
     </div>
   );
