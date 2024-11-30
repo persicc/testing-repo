@@ -7,14 +7,14 @@ const AuthContext = createContext({ status: "unauthenticated", session: null });
 
 const AuthProvider = ({ children }) => {
   const { data: session, status } = useSession();
-  const [userId, setUserId] = useState(null);
+  const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
-    if (session?.user) setUserId(session.user.id);
+    setCurrentId(session?.user?.id);
   }, [session]);
 
   return (
-    <AuthContext.Provider value={{ session, status, userId }}>
+    <AuthContext.Provider value={{ session, status, currentId }}>
       {children}
     </AuthContext.Provider>
   );
