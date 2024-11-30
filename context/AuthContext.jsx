@@ -10,7 +10,6 @@ const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    console.log(session?.user);
     if (session?.user) setUserId(session.user.id);
   }, [session]);
 

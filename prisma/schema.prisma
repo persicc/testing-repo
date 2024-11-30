@@ -10,7 +10,7 @@ generator client {
 model User {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String? @unique
+  email         String @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -20,8 +20,6 @@ model User {
 
   Posts Post[]
   Comments Comment[]
-  Likes Like[]
-
   createdAt DateTime @default(now())
 }
  
@@ -84,35 +82,36 @@ model Authenticator {
 }
 
 
+model Category {
+  id String @id @default(cuid()) @map("_id")
+  slug String @unique
+  title String 
+  img String?
+  Posts Post[]
+}
 
 model Post {
   id String @id @default(cuid()) @map("_id")
-  desc String?
-  img String?
-  Likes Like[]
-  userId String
-  user User @relation(fields: [userId], references: [id])
-
   createdAt DateTime @default(now())
-  
+  slug String @unique
+  title String 
+  desc String
+  img String?
+  catSlug String
+  cat Category @relation(fields: [catSlug], references: [slug])
+  userEmail String
+  user User @relation(fields: [userEmail], references: [email])
+  comments Comment[]
 }
 
 model Comment {
   id String @id @default(cuid()) @map("_id")
-  text String
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  postId String
-
   createdAt DateTime @default(now())
+  slug String @unique
+  desc String
+  userEmail String
+  user User @relation(fields: [userEmail], references: [email])
+  postSlug String
+  post Post @relation(fields: [postSlug], references: [slug])
 }
 
-model Like {
-  id String @id @default(cuid()) @map("_id")
-  userId String
-  User User @relation(fields: [userId], references: [id])
-  postId String
-  Post Post @relation(fields: [postId], references: [id])
-
-  createdAt DateTime @default(now())
-}

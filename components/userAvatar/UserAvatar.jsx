@@ -1,4 +1,6 @@
 import { auth } from "@/auth";
+import Image from "next/image";
+import styles from "./userAvatar.module.css";
 
 export default async function UserAvatar() {
   const session = await auth();
@@ -7,8 +9,13 @@ export default async function UserAvatar() {
 
   return (
     <div>
-      <img src={session?.user?.image} alt="User Avatar" />
-      <h1>{session.user.name}</h1>
+      <Image
+        className={styles.avatar}
+        src={session?.user?.image}
+        width={40}
+        height={40}
+        alt="User image"
+      />
     </div>
   );
 }

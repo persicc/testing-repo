@@ -14,13 +14,30 @@ function LoginPage() {
     if (status === "authenticated") router.push("/");
   }, [status]);
 
+  const createPost = async () => {
+    try {
+      await fetch(`{env.API_URL}/api/posts`, { method: "POST" });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
         <h1>Login</h1>
-        <input type="text" placeholder="Enter username" />
-        <input type="password" placeholder="Enter password" />
-        <input type="password" placeholder="Repeat password" />
+
+        <form>
+          <input type="text" placeholder="Enter username" name="username" />
+          <input type="password" placeholder="Enter password" name="password" />
+          <input
+            type="password"
+            placeholder="Repeat password"
+            name="password-repeat"
+          />
+          <button onClick={createPost}>Sign in</button>
+        </form>
+
         <SignIn />
       </div>
     </div>

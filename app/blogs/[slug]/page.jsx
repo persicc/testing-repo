@@ -4,27 +4,19 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 function SingleBlogPage() {
-  const router = useRouter();
   const [blog, setBlog] = useState(null);
-  const { blogId } = router.pathname;
+  const router = useRouter();
+  const { postId } = router.pathname.split("/")[2];
 
   useEffect(() => {
-    if (!blogId) return;
-
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          `https://jsonplaceholder.typicode.com/posts/${blogId}`
-        );
-        const data = await response.json();
-        setBlog(data);
-      } catch (error) {
-        console.log(error);
-      }
+    const getBlog = async () => {
+      const response = await fetch(`{env.API_URL}/api/blog/${postId}`);
+      const blog = await response.json();
+      setBlog(blog);
     };
 
-    getData();
-  }, [blogId]);
+    getBlog();
+  }, [postId]);
 
   return (
     <div>

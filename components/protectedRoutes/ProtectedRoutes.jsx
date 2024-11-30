@@ -10,11 +10,7 @@ function ProtectedRoutes({ children }) {
 
   useEffect(() => {
     console.log(status);
-    if (
-      (status === "unauthenticated" && router.pathname !== "/auth/login") ||
-      router.pathname !== "/auth/signIn"
-    )
-      router.push("/auth/login");
+    if (status === "unauthenticated") router.push("/login");
   }, [status]);
 
   return <>{children}</>;
