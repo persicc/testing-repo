@@ -1,24 +1,26 @@
 "use client";
 
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 function CreateCategory() {
-  const [slug, setSlug] = useState("");
   const [title, setTitle] = useState("");
 
   const createCategory = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/categories", {
+      await fetch("http://localhost:3000/api/categories", {
         method: "POST",
-        contentType: "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          slug,
           title,
         }),
       });
 
-      console.log(response);
+      alert("Category created successfully");
+      setTitle("");
     } catch (error) {
       console.log(error);
     }
@@ -29,16 +31,11 @@ function CreateCategory() {
       <form onSubmit={createCategory}>
         <input
           type="text"
-          placeholder="Category Slug"
-          value={slug}
-          onChange={(e) => setSlug(e.target.value)}
-        />
-        <input
-          type="text"
           placeholder="Category Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+
         <button>Submit</button>
       </form>
     </div>

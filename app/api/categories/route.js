@@ -5,14 +5,19 @@ export const GET = async (req, res) => {
   try {
     const response = await prisma.category.findMany();
 
-    return new NextResponse(JSON.stringify(response), {
-      status: 200,
-      message: "OK",
-    });
+    return NextResponse.json(
+      {
+        message: "OK",
+        data: response,
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     console.log(error);
 
-    return new NextResponse(
+    return NextResponse(
       error.message,
       { status: 500 },
       { message: "Internal Server Error" }
@@ -21,13 +26,14 @@ export const GET = async (req, res) => {
 };
 
 export const POST = async (req, res) => {
-  const { title, slug } = await req.json();
+  const { title } = await req.json();
   try {
-    const result = await prisma.category.findUnique({ where: { slug: slug } });
+    const result = await prisma.category.findUnique({
+      where: { slug: title },
+    });
 
     if (result)
-      return new NextResponse.json(
-        result,
+      return NextResponse.json(
         { status: 200 },
         { message: "Category already exists", data: result }
       );
@@ -35,19 +41,20 @@ export const POST = async (req, res) => {
     const newCategory = await prisma.category.create({
       data: {
         title: title,
-        slug: slug,
+        slug: title,
       },
     });
 
-    return new NextResponse(
-      JSON.stringify({
-        message: "Category created successfully",
-        data: newCategory,
-      })
-    );
+    return NextResponse.json({
+      message: "Category created successfully",
+      data: newCategory,
+    });
   } catch (error) {
     console.log(error);
-    return new NextResponse.json(error.message, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
   }
 };
 
@@ -55,7 +62,6 @@ export const DELETE = async (req) => {
   try {
     const { slug } = await req.json();
 
-    // Pronađi kategoriju
     const result = await prisma.category.findUnique({
       where: { slug },
     });
@@ -67,7 +73,6 @@ export const DELETE = async (req) => {
       );
     }
 
-    // Obriši kategoriju
     const deleteCategory = await prisma.category.delete({
       where: { slug },
     });

@@ -1,8 +1,11 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 function DeletePage() {
-  const [slug, setSlug] = useState("");
+  const search = useSearchParams();
+  const data = search.get("data");
+  const [slug, setSlug] = useState(data || "");
 
   const deleteCategory = async (e) => {
     e.preventDefault();
