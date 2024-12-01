@@ -4,10 +4,11 @@ import Sidebar from "@/components/sidebar/Sidebar";
 
 const getData = async () => {
   try {
-    const response = await fetch(`{env.API_URL}/api/categories`, {
+    const response = await fetch(`http://localhost:3000/api/categories`, {
       cache: "no-store",
     });
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -23,7 +24,7 @@ export default async function Home() {
       <Sidebar />
 
       <div>
-        {data.map((category) => (
+        {data?.map((category) => (
           <div key={category._id}>
             <h1>{category.title}</h1>
           </div>

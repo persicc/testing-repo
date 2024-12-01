@@ -27,7 +27,7 @@ function LoginPage() {
       <div className={styles.loginContainer}>
         <h1>Login</h1>
 
-        <form>
+        <form className={styles.form}>
           <input type="text" placeholder="Enter username" name="username" />
           <input type="password" placeholder="Enter password" name="password" />
           <input
@@ -35,7 +35,6 @@ function LoginPage() {
             placeholder="Repeat password"
             name="password-repeat"
           />
-          <button onClick={createPost}>Sign in</button>
         </form>
 
         <SignIn />
